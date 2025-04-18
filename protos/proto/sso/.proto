@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option go_package = "Kry0z1.sso.v1;ssov1";
+
+service Auth {
+  // Registers user in whole app and returns their id
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterResponse) {}
+
+  // Gets credentials from user and returns token for them
+  rpc Login(LoginRequest) returns (LoginResponse) {}
+
+  // Checks if user is admin by their id
+  rpc IsAdmin(IsAdminRequest) returns (IsAdminResponse) {}
+
+  // Private handle to register server and its private key for creating tokens
+  rpc RegisterApp(RegisterAppRequest) returns (RegisterResponse) {}
+}
+
+message RegisterUserRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message RegisterResponse {
+  int64 id = 1;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+  int64 app_id = 3;
+}
+
+message LoginResponse {
+  string token = 1;
+}
+
+message IsAdminRequest {
+  int64 user_id = 1;
+}
+
+message IsAdminResponse {
+  bool is_admin = 1;
+}
+
+message RegisterAppRequest {
+  string secret_key = 1;
+}
