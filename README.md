@@ -3,13 +3,13 @@ This project comprises a few microservices, each with it's own codebase, connect
 
 # Technology stack
  - gRPC
+ - sqlite3
 
 # Used packages
  - `cleanenv` for reading config
+ - `slog` for logging
+ - `golang-migrate` for database migrations 
 
 # TO DO:
 - [ ] Make authorization service
-    - [ ] Write contract
-    - [ ] Make smallest working version
-    - [ ] Finish
-
+    - [ ] Write test

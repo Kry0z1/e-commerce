@@ -11,9 +11,6 @@ service Auth {
 
   // Checks if user is admin by their id
   rpc IsAdmin(IsAdminRequest) returns (IsAdminResponse) {}
-
-  // Private handle to register server and its private key for creating tokens
-  rpc RegisterApp(RegisterAppRequest) returns (RegisterResponse) {}
 }
 
 message RegisterUserRequest {
@@ -41,8 +38,4 @@ message IsAdminRequest {
 
 message IsAdminResponse {
   bool is_admin = 1;
-}
-
-message RegisterAppRequest {
-  string secret_key = 1;
 }

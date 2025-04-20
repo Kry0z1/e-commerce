@@ -2,18 +2,50 @@ package main
 
 import (
 	"fmt"
+	"log/slog"
+	"os"
+	"os/signal"
+	"syscall"
 
+	"github.com/Kry0z1/e-commerce/sso-microservice/internal/app"
 	"github.com/Kry0z1/e-commerce/sso-microservice/internal/config"
+	"github.com/Kry0z1/e-commerce/sso-microservice/internal/lib/logger/handlers/slogpretty"
+)
+
+var (
+	localStr = "local"
+	prodStr  = "prod"
 )
 
 func main() {
+	fmt.Println(1)
+
 	cfg := config.MustLoad()
 	fmt.Println(cfg)
 
-	// TODO: Configure logger
-	// TODO: Start connection
+	logger := setupLogger(cfg.Env)
 
-	// TODO: Initialize service
+	application := app.New(logger, cfg.GRPC.Port, cfg.StoragePath, cfg.TokenTTL)
 
-	// TODO: Graceful shutdown
+	go func() {
+		application.GRPCServer.MustRun()
+	}()
+
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, syscall.SIGTERM, syscall.SIGINT)
+
+	<-stop
+
+	logger.Info("Server gracefully died")
+}
+
+func setupLogger(level string) *slog.Logger {
+	switch level {
+	case "local":
+		return slog.New(slogpretty.NewPrettyHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}))
+	case "prod":
+		return slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelError}))
+	default:
+		return slog.Default()
+	}
 }

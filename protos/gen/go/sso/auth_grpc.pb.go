@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v6.30.1
-// source: sso/.proto
+// source: sso/auth.proto
 
 package ssov1
 
@@ -22,7 +22,6 @@ const (
 	Auth_RegisterUser_FullMethodName = "/Auth/RegisterUser"
 	Auth_Login_FullMethodName        = "/Auth/Login"
 	Auth_IsAdmin_FullMethodName      = "/Auth/IsAdmin"
-	Auth_RegisterApp_FullMethodName  = "/Auth/RegisterApp"
 )
 
 // AuthClient is the client API for Auth service.
@@ -35,8 +34,6 @@ type AuthClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	// Checks if user is admin by their id
 	IsAdmin(ctx context.Context, in *IsAdminRequest, opts ...grpc.CallOption) (*IsAdminResponse, error)
-	// Private handle to register server and its private key for creating tokens
-	RegisterApp(ctx context.Context, in *RegisterAppRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
 }
 
 type authClient struct {
@@ -77,16 +74,6 @@ func (c *authClient) IsAdmin(ctx context.Context, in *IsAdminRequest, opts ...gr
 	return out, nil
 }
 
-func (c *authClient) RegisterApp(ctx context.Context, in *RegisterAppRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(RegisterResponse)
-	err := c.cc.Invoke(ctx, Auth_RegisterApp_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // AuthServer is the server API for Auth service.
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility.
@@ -97,8 +84,6 @@ type AuthServer interface {
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	// Checks if user is admin by their id
 	IsAdmin(context.Context, *IsAdminRequest) (*IsAdminResponse, error)
-	// Private handle to register server and its private key for creating tokens
-	RegisterApp(context.Context, *RegisterAppRequest) (*RegisterResponse, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -117,9 +102,6 @@ func (UnimplementedAuthServer) Login(context.Context, *LoginRequest) (*LoginResp
 }
 func (UnimplementedAuthServer) IsAdmin(context.Context, *IsAdminRequest) (*IsAdminResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method IsAdmin not implemented")
-}
-func (UnimplementedAuthServer) RegisterApp(context.Context, *RegisterAppRequest) (*RegisterResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RegisterApp not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 func (UnimplementedAuthServer) testEmbeddedByValue()              {}
@@ -196,24 +178,6 @@ func _Auth_IsAdmin_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Auth_RegisterApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RegisterAppRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).RegisterApp(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Auth_RegisterApp_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).RegisterApp(ctx, req.(*RegisterAppRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -233,11 +197,7 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "IsAdmin",
 			Handler:    _Auth_IsAdmin_Handler,
 		},
-		{
-			MethodName: "RegisterApp",
-			Handler:    _Auth_RegisterApp_Handler,
-		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "sso/.proto",
+	Metadata: "sso/auth.proto",
 }
