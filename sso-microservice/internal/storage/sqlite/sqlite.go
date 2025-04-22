@@ -35,7 +35,7 @@ func (s *Storage) SaveUser(ctx context.Context, email string, hashedPassword []b
 	const op = "storage.sqlite.SaveUser"
 
 	res, err := s.db.ExecContext(ctx, `
-		INSERT INTO users(email, hashed_pass) VALUES(?, ?)
+		INSERT INTO users(email, pass_hash) VALUES(?, ?)
 	`, email, hashedPassword)
 
 	if err != nil {
@@ -62,7 +62,7 @@ func (s *Storage) User(ctx context.Context, email string) (models.User, error) {
 	var user models.User
 
 	err := s.db.QueryRowContext(ctx, `
-		SELECT id, email, hashed_pass
+		SELECT id, email, pass_hash
 		FROM users
 		WHERE email == ?
 	`, email).Scan(&user.ID, &user.Email, &user.HashedPassword)

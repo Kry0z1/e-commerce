@@ -1,5 +1,5 @@
 env: "local"
-storage_path: ".data/"
+storage_path: ".data/data.db"
 token_ttl: 1h
 grpc:
   port: 15000

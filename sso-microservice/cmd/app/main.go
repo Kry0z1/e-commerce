@@ -18,8 +18,6 @@ var (
 )
 
 func main() {
-	fmt.Println(1)
-
 	cfg := config.MustLoad()
 	fmt.Println(cfg)
 
@@ -41,9 +39,9 @@ func main() {
 
 func setupLogger(level string) *slog.Logger {
 	switch level {
-	case "local":
+	case localStr:
 		return slog.New(slogpretty.NewPrettyHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}))
-	case "prod":
+	case prodStr:
 		return slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelError}))
 	default:
 		return slog.Default()
