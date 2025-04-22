@@ -1,0 +1,6 @@
+env: "local"
+storage_path: ".data/data.db"
+token_ttl: 1h
+grpc:
+  port: 15000
+  timeout: 5s
