@@ -1,0 +1,6 @@
+env: "prod"
+storage_path: ".data/data.db"
+token_ttl: 72h
+grpc:
+  port: 15000
+  timeout: 1s

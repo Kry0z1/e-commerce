@@ -12,7 +12,7 @@ This project comprises a few microservices, each with it's own codebase, connect
  - `gofakeit` for creating random passwords and emails for testing
 
 # TO DO:
-- [ ] Make authotization service
+- [x] Make authotization service
 - [ ] Make product catalog service
 - [ ] Make shopping cart service
 - [ ] Make order service
