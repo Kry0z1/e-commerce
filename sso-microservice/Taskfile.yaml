@@ -6,11 +6,12 @@ tasks:
       - migloc
     desc: "apply migrations to local database"
     cmds:
-      - go run cmd/migrator/main.go --storage-path .data/data.db --migrations-path migrations --migrations-table migrations
+      - go run ../migrator/main.go --storage-path .data/data.db --migrations-path migrations --migrations-table migrations
+  migratetest:
     aliases:
       - migtest
     desc: "apply migrations to local database from tests"
     cmds:
-      - go run cmd/migrator/main.go --storage-path .data/data.db --migrations-path tests/migrations --migrations-table migrations_tests
+      - go run ../migrator/main.go --storage-path .data/data.db --migrations-path tests/migrations --migrations-table migrations_tests
 
 
