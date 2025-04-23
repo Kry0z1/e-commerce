@@ -1,0 +1,5 @@
+env: "local"
+storage_path: ".data/data.db"
+grpc:
+  port: 15001
+  timeout: 72h

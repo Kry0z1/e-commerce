@@ -1,0 +1,5 @@
+env: "prod"
+storage_path: ".data/data.db"
+grpc:
+  port: 15001
+  timeout: 1s
