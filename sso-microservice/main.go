@@ -7,9 +7,9 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/Kry0z1/e-commerce/logger/handlers/slogpretty"
 	"github.com/Kry0z1/e-commerce/sso-microservice/internal/app"
 	"github.com/Kry0z1/e-commerce/sso-microservice/internal/config"
-	"github.com/Kry0z1/e-commerce/sso-microservice/internal/lib/logger/handlers/slogpretty"
 )
 
 var (

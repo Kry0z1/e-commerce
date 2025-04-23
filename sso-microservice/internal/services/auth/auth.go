@@ -7,9 +7,9 @@ import (
 	"log/slog"
 	"time"
 
+	"github.com/Kry0z1/e-commerce/logger/ll"
 	"github.com/Kry0z1/e-commerce/sso-microservice/internal/domain/models"
-	"github.com/Kry0z1/e-commerce/sso-microservice/internal/lib/jwt"
-	"github.com/Kry0z1/e-commerce/sso-microservice/internal/lib/logger/ll"
+	"github.com/Kry0z1/e-commerce/sso-microservice/internal/jwt"
 	"github.com/Kry0z1/e-commerce/sso-microservice/internal/storage"
 	"golang.org/x/crypto/bcrypt"
 )
