@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+option go_package = "Kry0z1.prodcat.v1;prodcatv1";
+
+service Catalog {
+    // Creates product listing and returns its id
+    rpc CreateListing(CreateListingRequest) returns (CreateListingResponse) {}
+
+    // Returns listing by its id
+    rpc GetListing(GetListingRequest) returns (GetListingRequest) {}
+
+    // Updates listing: user needs to be creator of that listing or admin
+    rpc UpdateListing(UpdateListingRequest) returns (UpdateListingRequest) {}
+
+    // Deletes listing: user needs to be creator of that listing or admin
+    rpc DeleteListing(DeleteListingRequest) returns (DeleteListingResponse) {}
+}
+
+message CreateListingRequest {
+    string title = 1;
+    string description = 2;
+    int64 quantity = 3;
+    string category = 4;
+    bool closed = 5;
+
+    // Cost in cents 
+    int64 price = 6;
+}
+
+message CreateListingResponse {
+    int64 id = 1;
+}
+
+message GetListingRequest {
+    int64 id = 1;
+}
+
+message GetListingResponse {
+    string title = 1;
+    string description = 2;
+    int64 quantity = 3;
+    string category = 4;
+    bool closed = 5;
+
+    // Cost in cents 
+    int64 price = 6;
+
+    // id of task creator
+    int64 creator = 7;
+}
+
+message UpdateListingRequest {
+    string title = 1;
+    string description = 2;
+    int64 quantity = 3;
+    string category = 4;
+    bool closed = 5;
+
+    // Cost in cents 
+    int64 price = 6;
+
+    // JWT token of user issuing update
+    string token = 7;
+
+    int64 id = 8;
+}
+
+message DeleteListingRequest {
+    int64 user = 1;
+    int64 id = 2;
+}
+
+message DeleteListingResponse {
+    bool succeeded = 1;
+}
