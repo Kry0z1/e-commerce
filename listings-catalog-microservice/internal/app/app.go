@@ -3,9 +3,9 @@ package app
 import (
 	"log/slog"
 
-	grpcapp "github.com/Kry0z1/e-commerce/product-catalog-microservice/internal/app/grpc"
-	"github.com/Kry0z1/e-commerce/product-catalog-microservice/internal/service"
-	"github.com/Kry0z1/e-commerce/product-catalog-microservice/internal/storage/sqlite"
+	grpcapp "github.com/Kry0z1/e-commerce/listings-catalog-microservice/internal/app/grpc"
+	"github.com/Kry0z1/e-commerce/listings-catalog-microservice/internal/service"
+	"github.com/Kry0z1/e-commerce/listings-catalog-microservice/internal/storage/sqlite"
 )
 
 type App struct {

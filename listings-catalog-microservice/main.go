@@ -7,9 +7,9 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/Kry0z1/e-commerce/listings-catalog-microservice/internal/app"
+	"github.com/Kry0z1/e-commerce/listings-catalog-microservice/internal/config"
 	"github.com/Kry0z1/e-commerce/logger/handlers/slogpretty"
-	"github.com/Kry0z1/e-commerce/product-catalog-microservice/internal/app"
-	"github.com/Kry0z1/e-commerce/product-catalog-microservice/internal/config"
 )
 
 var (

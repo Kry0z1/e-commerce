@@ -6,8 +6,8 @@ import (
 	"log/slog"
 	"net"
 
-	grpcserver "github.com/Kry0z1/e-commerce/product-catalog-microservice/internal/grpc"
-	"github.com/Kry0z1/e-commerce/product-catalog-microservice/internal/service"
+	grpcserver "github.com/Kry0z1/e-commerce/listings-catalog-microservice/internal/grpc"
+	"github.com/Kry0z1/e-commerce/listings-catalog-microservice/internal/service"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/logging"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/recovery"
 	"google.golang.org/grpc"
@@ -40,7 +40,7 @@ func New(service *service.Service, log *slog.Logger, port int) *App {
 		logging.UnaryServerInterceptor(InterceptorLogger(log), loggingOpts...),
 	))
 
-	grpcserver.Register(gRPCServer)
+	grpcserver.Register(gRPCServer, *service)
 
 	return &App{
 		log:        log,

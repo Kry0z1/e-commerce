@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v6.30.1
-// source: product-catalog/product-catalog.proto
+// source: listings-catalog/listings-catalog.proto
 
 package prodcatv1
 
@@ -29,14 +29,16 @@ type CreateListingRequest struct {
 	Category    string                 `protobuf:"bytes,4,opt,name=category,proto3" json:"category,omitempty"`
 	Closed      bool                   `protobuf:"varint,5,opt,name=closed,proto3" json:"closed,omitempty"`
 	// Cost in cents
-	Price         int64 `protobuf:"varint,6,opt,name=price,proto3" json:"price,omitempty"`
+	Price int64 `protobuf:"varint,6,opt,name=price,proto3" json:"price,omitempty"`
+	// JWT token of user issuing update
+	Token         string `protobuf:"bytes,7,opt,name=token,proto3" json:"token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *CreateListingRequest) Reset() {
 	*x = CreateListingRequest{}
-	mi := &file_product_catalog_product_catalog_proto_msgTypes[0]
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -48,7 +50,7 @@ func (x *CreateListingRequest) String() string {
 func (*CreateListingRequest) ProtoMessage() {}
 
 func (x *CreateListingRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_product_catalog_product_catalog_proto_msgTypes[0]
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -61,7 +63,7 @@ func (x *CreateListingRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateListingRequest.ProtoReflect.Descriptor instead.
 func (*CreateListingRequest) Descriptor() ([]byte, []int) {
-	return file_product_catalog_product_catalog_proto_rawDescGZIP(), []int{0}
+	return file_listings_catalog_listings_catalog_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *CreateListingRequest) GetTitle() string {
@@ -106,6 +108,13 @@ func (x *CreateListingRequest) GetPrice() int64 {
 	return 0
 }
 
+func (x *CreateListingRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
 type CreateListingResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -115,7 +124,7 @@ type CreateListingResponse struct {
 
 func (x *CreateListingResponse) Reset() {
 	*x = CreateListingResponse{}
-	mi := &file_product_catalog_product_catalog_proto_msgTypes[1]
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -127,7 +136,7 @@ func (x *CreateListingResponse) String() string {
 func (*CreateListingResponse) ProtoMessage() {}
 
 func (x *CreateListingResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_product_catalog_product_catalog_proto_msgTypes[1]
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -140,7 +149,7 @@ func (x *CreateListingResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateListingResponse.ProtoReflect.Descriptor instead.
 func (*CreateListingResponse) Descriptor() ([]byte, []int) {
-	return file_product_catalog_product_catalog_proto_rawDescGZIP(), []int{1}
+	return file_listings_catalog_listings_catalog_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *CreateListingResponse) GetId() int64 {
@@ -159,7 +168,7 @@ type GetListingRequest struct {
 
 func (x *GetListingRequest) Reset() {
 	*x = GetListingRequest{}
-	mi := &file_product_catalog_product_catalog_proto_msgTypes[2]
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -171,7 +180,7 @@ func (x *GetListingRequest) String() string {
 func (*GetListingRequest) ProtoMessage() {}
 
 func (x *GetListingRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_product_catalog_product_catalog_proto_msgTypes[2]
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -184,7 +193,7 @@ func (x *GetListingRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetListingRequest.ProtoReflect.Descriptor instead.
 func (*GetListingRequest) Descriptor() ([]byte, []int) {
-	return file_product_catalog_product_catalog_proto_rawDescGZIP(), []int{2}
+	return file_listings_catalog_listings_catalog_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetListingRequest) GetId() int64 {
@@ -211,7 +220,7 @@ type GetListingResponse struct {
 
 func (x *GetListingResponse) Reset() {
 	*x = GetListingResponse{}
-	mi := &file_product_catalog_product_catalog_proto_msgTypes[3]
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -223,7 +232,7 @@ func (x *GetListingResponse) String() string {
 func (*GetListingResponse) ProtoMessage() {}
 
 func (x *GetListingResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_product_catalog_product_catalog_proto_msgTypes[3]
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -236,7 +245,7 @@ func (x *GetListingResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetListingResponse.ProtoReflect.Descriptor instead.
 func (*GetListingResponse) Descriptor() ([]byte, []int) {
-	return file_product_catalog_product_catalog_proto_rawDescGZIP(), []int{3}
+	return file_listings_catalog_listings_catalog_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetListingResponse) GetTitle() string {
@@ -306,7 +315,7 @@ type UpdateListingRequest struct {
 
 func (x *UpdateListingRequest) Reset() {
 	*x = UpdateListingRequest{}
-	mi := &file_product_catalog_product_catalog_proto_msgTypes[4]
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -318,7 +327,7 @@ func (x *UpdateListingRequest) String() string {
 func (*UpdateListingRequest) ProtoMessage() {}
 
 func (x *UpdateListingRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_product_catalog_product_catalog_proto_msgTypes[4]
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -331,7 +340,7 @@ func (x *UpdateListingRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateListingRequest.ProtoReflect.Descriptor instead.
 func (*UpdateListingRequest) Descriptor() ([]byte, []int) {
-	return file_product_catalog_product_catalog_proto_rawDescGZIP(), []int{4}
+	return file_listings_catalog_listings_catalog_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *UpdateListingRequest) GetTitle() string {
@@ -390,17 +399,62 @@ func (x *UpdateListingRequest) GetId() int64 {
 	return 0
 }
 
-type DeleteListingRequest struct {
+type UpdateListingResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	User          int64                  `protobuf:"varint,1,opt,name=user,proto3" json:"user,omitempty"`
-	Id            int64                  `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+	Succeeded     bool                   `protobuf:"varint,1,opt,name=succeeded,proto3" json:"succeeded,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateListingResponse) Reset() {
+	*x = UpdateListingResponse{}
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateListingResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateListingResponse) ProtoMessage() {}
+
+func (x *UpdateListingResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateListingResponse.ProtoReflect.Descriptor instead.
+func (*UpdateListingResponse) Descriptor() ([]byte, []int) {
+	return file_listings_catalog_listings_catalog_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *UpdateListingResponse) GetSucceeded() bool {
+	if x != nil {
+		return x.Succeeded
+	}
+	return false
+}
+
+type DeleteListingRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// JWT token of user issuing update
+	Token         string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Id            int64  `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DeleteListingRequest) Reset() {
 	*x = DeleteListingRequest{}
-	mi := &file_product_catalog_product_catalog_proto_msgTypes[5]
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -412,7 +466,7 @@ func (x *DeleteListingRequest) String() string {
 func (*DeleteListingRequest) ProtoMessage() {}
 
 func (x *DeleteListingRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_product_catalog_product_catalog_proto_msgTypes[5]
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -425,14 +479,14 @@ func (x *DeleteListingRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteListingRequest.ProtoReflect.Descriptor instead.
 func (*DeleteListingRequest) Descriptor() ([]byte, []int) {
-	return file_product_catalog_product_catalog_proto_rawDescGZIP(), []int{5}
+	return file_listings_catalog_listings_catalog_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *DeleteListingRequest) GetUser() int64 {
+func (x *DeleteListingRequest) GetToken() string {
 	if x != nil {
-		return x.User
+		return x.Token
 	}
-	return 0
+	return ""
 }
 
 func (x *DeleteListingRequest) GetId() int64 {
@@ -451,7 +505,7 @@ type DeleteListingResponse struct {
 
 func (x *DeleteListingResponse) Reset() {
 	*x = DeleteListingResponse{}
-	mi := &file_product_catalog_product_catalog_proto_msgTypes[6]
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -463,7 +517,7 @@ func (x *DeleteListingResponse) String() string {
 func (*DeleteListingResponse) ProtoMessage() {}
 
 func (x *DeleteListingResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_product_catalog_product_catalog_proto_msgTypes[6]
+	mi := &file_listings_catalog_listings_catalog_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -476,7 +530,7 @@ func (x *DeleteListingResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteListingResponse.ProtoReflect.Descriptor instead.
 func (*DeleteListingResponse) Descriptor() ([]byte, []int) {
-	return file_product_catalog_product_catalog_proto_rawDescGZIP(), []int{6}
+	return file_listings_catalog_listings_catalog_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *DeleteListingResponse) GetSucceeded() bool {
@@ -486,18 +540,19 @@ func (x *DeleteListingResponse) GetSucceeded() bool {
 	return false
 }
 
-var File_product_catalog_product_catalog_proto protoreflect.FileDescriptor
+var File_listings_catalog_listings_catalog_proto protoreflect.FileDescriptor
 
-const file_product_catalog_product_catalog_proto_rawDesc = "" +
+const file_listings_catalog_listings_catalog_proto_rawDesc = "" +
 	"\n" +
-	"%product-catalog/product-catalog.proto\"\xb4\x01\n" +
+	"'listings-catalog/listings-catalog.proto\"\xca\x01\n" +
 	"\x14CreateListingRequest\x12\x14\n" +
 	"\x05title\x18\x01 \x01(\tR\x05title\x12 \n" +
 	"\vdescription\x18\x02 \x01(\tR\vdescription\x12\x1a\n" +
 	"\bquantity\x18\x03 \x01(\x03R\bquantity\x12\x1a\n" +
 	"\bcategory\x18\x04 \x01(\tR\bcategory\x12\x16\n" +
 	"\x06closed\x18\x05 \x01(\bR\x06closed\x12\x14\n" +
-	"\x05price\x18\x06 \x01(\x03R\x05price\"'\n" +
+	"\x05price\x18\x06 \x01(\x03R\x05price\x12\x14\n" +
+	"\x05token\x18\a \x01(\tR\x05token\"'\n" +
 	"\x15CreateListingResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"#\n" +
 	"\x11GetListingRequest\x12\x0e\n" +
@@ -518,50 +573,53 @@ const file_product_catalog_product_catalog_proto_rawDesc = "" +
 	"\x06closed\x18\x05 \x01(\bR\x06closed\x12\x14\n" +
 	"\x05price\x18\x06 \x01(\x03R\x05price\x12\x14\n" +
 	"\x05token\x18\a \x01(\tR\x05token\x12\x0e\n" +
-	"\x02id\x18\b \x01(\x03R\x02id\":\n" +
-	"\x14DeleteListingRequest\x12\x12\n" +
-	"\x04user\x18\x01 \x01(\x03R\x04user\x12\x0e\n" +
+	"\x02id\x18\b \x01(\x03R\x02id\"5\n" +
+	"\x15UpdateListingResponse\x12\x1c\n" +
+	"\tsucceeded\x18\x01 \x01(\bR\tsucceeded\"<\n" +
+	"\x14DeleteListingRequest\x12\x14\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\x12\x0e\n" +
 	"\x02id\x18\x02 \x01(\x03R\x02id\"5\n" +
 	"\x15DeleteListingResponse\x12\x1c\n" +
-	"\tsucceeded\x18\x01 \x01(\bR\tsucceeded2\x86\x02\n" +
+	"\tsucceeded\x18\x01 \x01(\bR\tsucceeded2\x88\x02\n" +
 	"\aCatalog\x12@\n" +
-	"\rCreateListing\x12\x15.CreateListingRequest\x1a\x16.CreateListingResponse\"\x00\x126\n" +
+	"\rCreateListing\x12\x15.CreateListingRequest\x1a\x16.CreateListingResponse\"\x00\x127\n" +
 	"\n" +
-	"GetListing\x12\x12.GetListingRequest\x1a\x12.GetListingRequest\"\x00\x12?\n" +
-	"\rUpdateListing\x12\x15.UpdateListingRequest\x1a\x15.UpdateListingRequest\"\x00\x12@\n" +
+	"GetListing\x12\x12.GetListingRequest\x1a\x13.GetListingResponse\"\x00\x12@\n" +
+	"\rUpdateListing\x12\x15.UpdateListingRequest\x1a\x16.UpdateListingResponse\"\x00\x12@\n" +
 	"\rDeleteListing\x12\x15.DeleteListingRequest\x1a\x16.DeleteListingResponse\"\x00B\x1dZ\x1bKry0z1.prodcat.v1;prodcatv1b\x06proto3"
 
 var (
-	file_product_catalog_product_catalog_proto_rawDescOnce sync.Once
-	file_product_catalog_product_catalog_proto_rawDescData []byte
+	file_listings_catalog_listings_catalog_proto_rawDescOnce sync.Once
+	file_listings_catalog_listings_catalog_proto_rawDescData []byte
 )
 
-func file_product_catalog_product_catalog_proto_rawDescGZIP() []byte {
-	file_product_catalog_product_catalog_proto_rawDescOnce.Do(func() {
-		file_product_catalog_product_catalog_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_product_catalog_product_catalog_proto_rawDesc), len(file_product_catalog_product_catalog_proto_rawDesc)))
+func file_listings_catalog_listings_catalog_proto_rawDescGZIP() []byte {
+	file_listings_catalog_listings_catalog_proto_rawDescOnce.Do(func() {
+		file_listings_catalog_listings_catalog_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_listings_catalog_listings_catalog_proto_rawDesc), len(file_listings_catalog_listings_catalog_proto_rawDesc)))
 	})
-	return file_product_catalog_product_catalog_proto_rawDescData
+	return file_listings_catalog_listings_catalog_proto_rawDescData
 }
 
-var file_product_catalog_product_catalog_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_product_catalog_product_catalog_proto_goTypes = []any{
+var file_listings_catalog_listings_catalog_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_listings_catalog_listings_catalog_proto_goTypes = []any{
 	(*CreateListingRequest)(nil),  // 0: CreateListingRequest
 	(*CreateListingResponse)(nil), // 1: CreateListingResponse
 	(*GetListingRequest)(nil),     // 2: GetListingRequest
 	(*GetListingResponse)(nil),    // 3: GetListingResponse
 	(*UpdateListingRequest)(nil),  // 4: UpdateListingRequest
-	(*DeleteListingRequest)(nil),  // 5: DeleteListingRequest
-	(*DeleteListingResponse)(nil), // 6: DeleteListingResponse
+	(*UpdateListingResponse)(nil), // 5: UpdateListingResponse
+	(*DeleteListingRequest)(nil),  // 6: DeleteListingRequest
+	(*DeleteListingResponse)(nil), // 7: DeleteListingResponse
 }
-var file_product_catalog_product_catalog_proto_depIdxs = []int32{
+var file_listings_catalog_listings_catalog_proto_depIdxs = []int32{
 	0, // 0: Catalog.CreateListing:input_type -> CreateListingRequest
 	2, // 1: Catalog.GetListing:input_type -> GetListingRequest
 	4, // 2: Catalog.UpdateListing:input_type -> UpdateListingRequest
-	5, // 3: Catalog.DeleteListing:input_type -> DeleteListingRequest
+	6, // 3: Catalog.DeleteListing:input_type -> DeleteListingRequest
 	1, // 4: Catalog.CreateListing:output_type -> CreateListingResponse
-	2, // 5: Catalog.GetListing:output_type -> GetListingRequest
-	4, // 6: Catalog.UpdateListing:output_type -> UpdateListingRequest
-	6, // 7: Catalog.DeleteListing:output_type -> DeleteListingResponse
+	3, // 5: Catalog.GetListing:output_type -> GetListingResponse
+	5, // 6: Catalog.UpdateListing:output_type -> UpdateListingResponse
+	7, // 7: Catalog.DeleteListing:output_type -> DeleteListingResponse
 	4, // [4:8] is the sub-list for method output_type
 	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -569,26 +627,26 @@ var file_product_catalog_product_catalog_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_product_catalog_product_catalog_proto_init() }
-func file_product_catalog_product_catalog_proto_init() {
-	if File_product_catalog_product_catalog_proto != nil {
+func init() { file_listings_catalog_listings_catalog_proto_init() }
+func file_listings_catalog_listings_catalog_proto_init() {
+	if File_listings_catalog_listings_catalog_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_product_catalog_product_catalog_proto_rawDesc), len(file_product_catalog_product_catalog_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_listings_catalog_listings_catalog_proto_rawDesc), len(file_listings_catalog_listings_catalog_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_product_catalog_product_catalog_proto_goTypes,
-		DependencyIndexes: file_product_catalog_product_catalog_proto_depIdxs,
-		MessageInfos:      file_product_catalog_product_catalog_proto_msgTypes,
+		GoTypes:           file_listings_catalog_listings_catalog_proto_goTypes,
+		DependencyIndexes: file_listings_catalog_listings_catalog_proto_depIdxs,
+		MessageInfos:      file_listings_catalog_listings_catalog_proto_msgTypes,
 	}.Build()
-	File_product_catalog_product_catalog_proto = out.File
-	file_product_catalog_product_catalog_proto_goTypes = nil
-	file_product_catalog_product_catalog_proto_depIdxs = nil
+	File_listings_catalog_listings_catalog_proto = out.File
+	file_listings_catalog_listings_catalog_proto_goTypes = nil
+	file_listings_catalog_listings_catalog_proto_depIdxs = nil
 }

@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v6.30.1
-// source: product-catalog/product-catalog.proto
+// source: listings-catalog/listings-catalog.proto
 
 package prodcatv1
 
@@ -32,9 +32,12 @@ type CatalogClient interface {
 	// Creates product listing and returns its id
 	CreateListing(ctx context.Context, in *CreateListingRequest, opts ...grpc.CallOption) (*CreateListingResponse, error)
 	// Returns listing by its id
-	GetListing(ctx context.Context, in *GetListingRequest, opts ...grpc.CallOption) (*GetListingRequest, error)
+	GetListing(ctx context.Context, in *GetListingRequest, opts ...grpc.CallOption) (*GetListingResponse, error)
 	// Updates listing: user needs to be creator of that listing or admin
-	UpdateListing(ctx context.Context, in *UpdateListingRequest, opts ...grpc.CallOption) (*UpdateListingRequest, error)
+	//
+	// Must pass all the fields, even unchanged.
+	// Except for description: empty description -> description unchanged
+	UpdateListing(ctx context.Context, in *UpdateListingRequest, opts ...grpc.CallOption) (*UpdateListingResponse, error)
 	// Deletes listing: user needs to be creator of that listing or admin
 	DeleteListing(ctx context.Context, in *DeleteListingRequest, opts ...grpc.CallOption) (*DeleteListingResponse, error)
 }
@@ -57,9 +60,9 @@ func (c *catalogClient) CreateListing(ctx context.Context, in *CreateListingRequ
 	return out, nil
 }
 
-func (c *catalogClient) GetListing(ctx context.Context, in *GetListingRequest, opts ...grpc.CallOption) (*GetListingRequest, error) {
+func (c *catalogClient) GetListing(ctx context.Context, in *GetListingRequest, opts ...grpc.CallOption) (*GetListingResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetListingRequest)
+	out := new(GetListingResponse)
 	err := c.cc.Invoke(ctx, Catalog_GetListing_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -67,9 +70,9 @@ func (c *catalogClient) GetListing(ctx context.Context, in *GetListingRequest, o
 	return out, nil
 }
 
-func (c *catalogClient) UpdateListing(ctx context.Context, in *UpdateListingRequest, opts ...grpc.CallOption) (*UpdateListingRequest, error) {
+func (c *catalogClient) UpdateListing(ctx context.Context, in *UpdateListingRequest, opts ...grpc.CallOption) (*UpdateListingResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateListingRequest)
+	out := new(UpdateListingResponse)
 	err := c.cc.Invoke(ctx, Catalog_UpdateListing_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -94,9 +97,12 @@ type CatalogServer interface {
 	// Creates product listing and returns its id
 	CreateListing(context.Context, *CreateListingRequest) (*CreateListingResponse, error)
 	// Returns listing by its id
-	GetListing(context.Context, *GetListingRequest) (*GetListingRequest, error)
+	GetListing(context.Context, *GetListingRequest) (*GetListingResponse, error)
 	// Updates listing: user needs to be creator of that listing or admin
-	UpdateListing(context.Context, *UpdateListingRequest) (*UpdateListingRequest, error)
+	//
+	// Must pass all the fields, even unchanged.
+	// Except for description: empty description -> description unchanged
+	UpdateListing(context.Context, *UpdateListingRequest) (*UpdateListingResponse, error)
 	// Deletes listing: user needs to be creator of that listing or admin
 	DeleteListing(context.Context, *DeleteListingRequest) (*DeleteListingResponse, error)
 	mustEmbedUnimplementedCatalogServer()
@@ -112,10 +118,10 @@ type UnimplementedCatalogServer struct{}
 func (UnimplementedCatalogServer) CreateListing(context.Context, *CreateListingRequest) (*CreateListingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateListing not implemented")
 }
-func (UnimplementedCatalogServer) GetListing(context.Context, *GetListingRequest) (*GetListingRequest, error) {
+func (UnimplementedCatalogServer) GetListing(context.Context, *GetListingRequest) (*GetListingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetListing not implemented")
 }
-func (UnimplementedCatalogServer) UpdateListing(context.Context, *UpdateListingRequest) (*UpdateListingRequest, error) {
+func (UnimplementedCatalogServer) UpdateListing(context.Context, *UpdateListingRequest) (*UpdateListingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateListing not implemented")
 }
 func (UnimplementedCatalogServer) DeleteListing(context.Context, *DeleteListingRequest) (*DeleteListingResponse, error) {
@@ -239,5 +245,5 @@ var Catalog_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "product-catalog/product-catalog.proto",
+	Metadata: "listings-catalog/listings-catalog.proto",
 }
